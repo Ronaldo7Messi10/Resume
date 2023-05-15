@@ -52,7 +52,7 @@ export default function DynamicBox(props, { placeholder }) {
         
         onChange={(newContent) =>handleQuill()}
       /> */}
-
+      <br/>
       <button onClick={deleteBox}> Delete </button>
     </div>
   );
