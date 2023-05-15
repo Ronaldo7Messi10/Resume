@@ -13,12 +13,20 @@ export const boxesSlice = createSlice({
   name: 'boxes',
   initialState,
   reducers: {
-    addBoxes: (state) => {
-      state.data.push({
-        type: 'DynamicBox',
-        heading: '',
-        context: '',
-      });
+    addBoxes: (state, action) => {
+      if (action.payload.data == 'DynamicBox') {
+        state.data.push({
+          type: 'DynamicBox',
+          heading: '',
+          context: '',
+        });
+      }
+      if (action.payload.data == 'DynamicSpace') {
+        state.data.push({
+          type: 'DynamicSpace',
+          height: 30,
+        });
+      }
     },
     deleteBoxes: (state, action) => {
       state.data.splice(action.payload, 1);
@@ -47,6 +55,10 @@ export const boxesSlice = createSlice({
 
       state.data = _arr;
     },
+    updateSpace: (state, action) => {
+      console.log('called' + action.payload.data);
+      state.data[action.payload.index].height = action.payload.data;
+    },
   },
 });
 
@@ -59,5 +71,6 @@ export const {
   filterData,
   updateContext,
   updateBasic,
+  updateSpace,
 } = boxesSlice.actions;
 export default boxesSlice.reducer;

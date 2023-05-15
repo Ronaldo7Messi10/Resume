@@ -1,5 +1,6 @@
 import * as React from 'react';
 import DynamicBox from './DynamicBox';
+import DynamicSpace from './DynamicSpace';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addBoxes,
@@ -25,8 +26,8 @@ export default function Box() {
     onAfterPrint: () => console.log('Resume printed'),
   });
 
-  const addBox = () => {
-    dispatch(addBoxes());
+  const addBox = (x) => {
+    dispatch(addBoxes({ data: x }));
   };
 
   const filterUs = () => {
@@ -38,10 +39,7 @@ export default function Box() {
   const updateBasicBox = (x, y) => {
     dispatch(updateBasic({ basicName: x, data: y }));
   };
-  const addSpace = () => {
-
-    
-  };
+  const addSpace = () => {};
   return (
     <div className="box-main">
       <div className="dynamic-area">
@@ -99,10 +97,30 @@ export default function Box() {
               </div>
             );
           }
+          if (x.type == 'DynamicSpace') {
+            return (
+              <div
+                className={`dynamic-box`}
+                key={idx}
+                draggable
+                onDragStart={(e) => (start.current = idx)}
+                onDragEnter={(e) => (end.current = idx)}
+                onDragEnd={filterUs}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                {/* <img
+                  
+                  src="https://cdn.onlinewebfonts.com/svg/img_487573.png"
+                  className='img-drag-icon'
+                /> */}
+                <DynamicSpace key={idx} index={idx} height={x.height} />
+              </div>
+            );
+          }
         })}
 
-        <button onClick={addBox}> Add box </button>
-        <button onClick={addSpace}> Add Space </button>
+        <button onClick={() => addBox('DynamicBox')}> Add box </button>
+        <button onClick={() => addBox('DynamicSpace')}> Add Space </button>
         <br />
         <button onClick={() => downloadPDF()}> Download as PDF </button>
 
@@ -122,15 +140,27 @@ export default function Box() {
               ) : null}
             </div>
           </div>
-          {boxesSlice.data.map((x, idx) => (
-            <div key={idx}>
-              {x.heading != '' && (
-                <h3 className="resume-heading"> {x.heading} </h3>
-              )}
+          {boxesSlice.data.map((x, idx) => {
+            if (x.type == 'DynamicBox') {
+              return (
+                <div key={idx}>
+                  {x.heading != '' && (
+                    <h3 className="resume-heading"> {x.heading} </h3>
+                  )}
 
-              <div dangerouslySetInnerHTML={{ __html: x.context }}></div>
-            </div>
-          ))}
+                  <div dangerouslySetInnerHTML={{ __html: x.context }}></div>
+                </div>
+              );
+            }
+            if (x.type == 'DynamicSpace') {
+              return (
+                <div
+                  style={{ height: x.height }}
+                  className="dynamic-space-result"
+                ></div>
+              );
+            }
+          })}
         </div>
       </div>
     </div>

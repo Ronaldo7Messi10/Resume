@@ -78,3 +78,10 @@ p {
   height: 100px;
   border-radius: 50%;
 }
+
+/*  Dynamic Space Result  */
+
+.dynamic-space-result {
+  border: 1px solid black;
+  border-style: dashed;
+}
