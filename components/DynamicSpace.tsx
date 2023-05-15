@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  addBoxes,
-  realBoxes,
-  boxesSliceState,
-  filterData,
-  updateBasic,
-  updateSpace,
-} from '../redux/slices/boxes';
+import { deleteBoxes, updateSpace } from '../redux/slices/boxes';
 
 export default function DynamicSpace(props) {
   const dispatch = useDispatch();
@@ -17,6 +10,9 @@ export default function DynamicSpace(props) {
     }
     dispatch(updateSpace({ data: parseInt(x), index: props.index }));
   };
+  const deleteSpace = () => {
+    dispatch(deleteBoxes(props.index));
+  };
   return (
     <div>
       <label> Change space height </label>
@@ -24,6 +20,7 @@ export default function DynamicSpace(props) {
         value={props.height}
         onChange={(e) => spaceUpdate(e.target.value)}
       />
+      <button onClick={deleteSpace}>Delete</button>
     </div>
   );
 }

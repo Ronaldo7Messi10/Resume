@@ -155,6 +155,7 @@ export default function Box() {
             if (x.type == 'DynamicSpace') {
               return (
                 <div
+                  key={idx}
                   style={{ height: x.height }}
                   className="dynamic-space-result"
                 ></div>
