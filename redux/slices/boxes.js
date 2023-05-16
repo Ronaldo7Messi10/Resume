@@ -13,6 +13,10 @@ export const boxesSlice = createSlice({
   name: 'boxes',
   initialState,
   reducers: {
+    retrieveFromLocal: (state, action) => {
+      state.data = action.payload.data.data;
+      state.basic = action.payload.data.basic;
+    },
     addBoxes: (state, action) => {
       if (action.payload.data == 'DynamicBox') {
         state.data.push({
@@ -72,5 +76,6 @@ export const {
   updateContext,
   updateBasic,
   updateSpace,
+  retrieveFromLocal,
 } = boxesSlice.actions;
 export default boxesSlice.reducer;
