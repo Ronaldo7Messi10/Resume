@@ -15,6 +15,7 @@
     "react-router": "^6.11.0",
     "react-router-dom": "^6.11.0",
     "react-to-print": "^2.14.12",
+    "react-transition-group": "^4.4.5",
     "redux": "^4"
   },
   "scripts": {

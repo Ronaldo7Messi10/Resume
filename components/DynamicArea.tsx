@@ -10,6 +10,7 @@ import {
   updateBasic,
 } from '../redux/slices/boxes';
 import { useReactToPrint } from 'react-to-print';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default function DynamicArea(props) {
   const rboxes = useSelector((state) => state.boxes.data);
@@ -67,53 +68,52 @@ export default function DynamicArea(props) {
       />
 
       <br />
-      {rboxes.map((x, idx) => {
-        if (x.type == 'DynamicBox') {
-          return (
-            <div
-              className={`dynamic-box`}
-              key={idx}
-              draggable
-              onDragStart={(e) => (start.current = idx)}
-              onDragEnter={(e) => (end.current = idx)}
-              onDragEnd={filterUs}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              {/* <img
+      <TransitionGroup>
+        {rboxes.map((x, idx) => {
+          if (x.type == 'DynamicBox') {
+            return (
+              <CSSTransition key={idx} timeout={300} classNames="fade">
+                <div
+                  className={`dynamic-box`}
+                  key={idx}
+                  draggable
+                  onDragStart={(e) => (start.current = idx)}
+                  onDragEnter={(e) => (end.current = idx)}
+                  onDragEnd={filterUs}
+                  onDragOver={(e) => e.preventDefault()}
+                >
+                  {/* <img
               
               src="https://cdn.onlinewebfonts.com/svg/img_487573.png"
               className='img-drag-icon'
             /> */}
-              <DynamicBox
+                  <DynamicBox
+                    key={idx}
+                    index={idx}
+                    context={x.context}
+                    heading={x.heading}
+                  />
+                </div>
+              </CSSTransition>
+            );
+          }
+          if (x.type == 'DynamicSpace') {
+            return (
+              <div
+                className={`dynamic-box`}
                 key={idx}
-                index={idx}
-                context={x.context}
-                heading={x.heading}
-              />
-            </div>
-          );
-        }
-        if (x.type == 'DynamicSpace') {
-          return (
-            <div
-              className={`dynamic-box`}
-              key={idx}
-              draggable
-              onDragStart={(e) => (start.current = idx)}
-              onDragEnter={(e) => (end.current = idx)}
-              onDragEnd={filterUs}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              {/* <img
-              
-              src="https://cdn.onlinewebfonts.com/svg/img_487573.png"
-              className='img-drag-icon'
-            /> */}
-              <DynamicSpace key={idx} index={idx} height={x.height} />
-            </div>
-          );
-        }
-      })}
+                draggable
+                onDragStart={(e) => (start.current = idx)}
+                onDragEnter={(e) => (end.current = idx)}
+                onDragEnd={filterUs}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <DynamicSpace key={idx} index={idx} height={x.height} />
+              </div>
+            );
+          }
+        })}
+      </TransitionGroup>
 
       <button onClick={() => addBox('DynamicBox')}> Add box </button>
       <button onClick={() => addBox('DynamicSpace')}> Add Space </button>

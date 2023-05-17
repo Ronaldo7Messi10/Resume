@@ -117,3 +117,31 @@ textarea {
   border: 1px solid black;
   border-style: dashed;
 }
+
+/* CSS Transitions */
+/* CSS Transitions */
+.dynamic-box {
+  transition: all 0.3s ease;
+}
+
+.dynamic-box.fade-enter {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.dynamic-box.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.1s ease;
+}
+
+.dynamic-box.fade-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dynamic-box.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.1s ease;
+}
