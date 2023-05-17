@@ -38,21 +38,20 @@ export default function DynamicBox(props, { placeholder }) {
         className={`${props.index}`}
       />
       <br />
-      <textarea
+      {/* <textarea
         placeholder="Enter the summary"
         onChange={(e) => updateContent(e.target.value)}
         value={props.context}
-      ></textarea>
+      ></textarea> */}
       {/* <ReactQuill value={props.context} onChange={handleQuill} /> */}
 
-      {/* <JoditEditor
+      <JoditEditor
         ref={editor}
         value={props.context}
         tabIndex={1} // tabIndex of textarea
-        
-        onChange={(newContent) =>handleQuill()}
-      /> */}
-      <br/>
+        onChange={(newContent) => handleQuill(newContent)}
+      />
+      <br />
       <button onClick={deleteBox}> Delete </button>
     </div>
   );
