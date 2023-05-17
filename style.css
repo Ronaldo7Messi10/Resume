@@ -120,7 +120,7 @@ textarea {
 
 /* CSS Transitions */
 /* CSS Transitions */
-.dynamic-box {
+/* .dynamic-box {
   transition: all 0.3s ease;
 }
 
@@ -132,7 +132,7 @@ textarea {
 .dynamic-box.fade-enter-active {
   opacity: 1;
   transform: scale(1);
-  transition: all 0.1s ease;
+  transition: all 0.02s ease;
 }
 
 .dynamic-box.fade-exit {
@@ -143,5 +143,5 @@ textarea {
 .dynamic-box.fade-exit-active {
   opacity: 0;
   transform: scale(0.5);
-  transition: all 0.1s ease;
-}
+  transition: all 0.02s ease;
+} */

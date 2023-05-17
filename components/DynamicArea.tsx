@@ -68,52 +68,49 @@ export default function DynamicArea(props) {
       />
 
       <br />
-      <TransitionGroup>
-        {rboxes.map((x, idx) => {
-          if (x.type == 'DynamicBox') {
-            return (
-              <CSSTransition key={idx} timeout={300} classNames="fade">
-                <div
-                  className={`dynamic-box`}
-                  key={idx}
-                  draggable
-                  onDragStart={(e) => (start.current = idx)}
-                  onDragEnter={(e) => (end.current = idx)}
-                  onDragEnd={filterUs}
-                  onDragOver={(e) => e.preventDefault()}
-                >
-                  {/* <img
+
+      {rboxes.map((x, idx) => {
+        if (x.type == 'DynamicBox') {
+          return (
+            <div
+              className={`dynamic-box`}
+              key={idx}
+              draggable
+              onDragStart={(e) => (start.current = idx)}
+              onDragEnter={(e) => (end.current = idx)}
+              onDragEnd={filterUs}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              {/* <img
               
               src="https://cdn.onlinewebfonts.com/svg/img_487573.png"
               className='img-drag-icon'
             /> */}
-                  <DynamicBox
-                    key={idx}
-                    index={idx}
-                    context={x.context}
-                    heading={x.heading}
-                  />
-                </div>
-              </CSSTransition>
-            );
-          }
-          if (x.type == 'DynamicSpace') {
-            return (
-              <div
-                className={`dynamic-box`}
+              <DynamicBox
                 key={idx}
-                draggable
-                onDragStart={(e) => (start.current = idx)}
-                onDragEnter={(e) => (end.current = idx)}
-                onDragEnd={filterUs}
-                onDragOver={(e) => e.preventDefault()}
-              >
-                <DynamicSpace key={idx} index={idx} height={x.height} />
-              </div>
-            );
-          }
-        })}
-      </TransitionGroup>
+                index={idx}
+                context={x.context}
+                heading={x.heading}
+              />
+            </div>
+          );
+        }
+        if (x.type == 'DynamicSpace') {
+          return (
+            <div
+              className={`dynamic-box`}
+              key={idx}
+              draggable
+              onDragStart={(e) => (start.current = idx)}
+              onDragEnter={(e) => (end.current = idx)}
+              onDragEnd={filterUs}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              <DynamicSpace key={idx} index={idx} height={x.height} />
+            </div>
+          );
+        }
+      })}
 
       <button onClick={() => addBox('DynamicBox')}> Add box </button>
       <button onClick={() => addBox('DynamicSpace')}> Add Space </button>
